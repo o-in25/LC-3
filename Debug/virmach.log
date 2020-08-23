@@ -1,0 +1,5 @@
+﻿  virmach.cpp
+C:\Users\ehall\source\repos\virmach\const.h(15,2): warning C4091: 'extern ': ignored on left of 'Registers' when no variable is declared
+C:\Users\ehall\source\repos\virmach\const.h(34,2): warning C4091: 'extern ': ignored on left of 'IS' when no variable is declared
+C:\Users\ehall\source\repos\virmach\const.h(41,2): warning C4091: 'extern ': ignored on left of 'Flags' when no variable is declared
+  virmach.vcxproj -> C:\Users\ehall\source\repos\virmach\Debug\virmach.exe
