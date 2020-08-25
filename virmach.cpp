@@ -1,7 +1,7 @@
 #include <iostream>
 #include "const.h"
 
-int main() {
+int main(int argc, const char* argv[]) {
 	// memory (65536)
 	uint16_t mem[UINT16_MAX];
 	// registers (10)
