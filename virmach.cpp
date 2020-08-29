@@ -1,11 +1,62 @@
 #include <iostream>
 #include "const.h"
+#include "virmach.h"
+
+
+unsigned createMask(unsigned a, unsigned b) {
+	unsigned mask = 0;
+	for(unsigned i = a; i <= b; i++) {
+		mask |= 1 << i;
+	}
+	return mask;
+}
+
+void signExtend(uint16_t* arg, int count) {
+	if((*(arg) >> (count - 1)) & 1) {
+		*(arg) = (0xFFFF << count);
+	}
+}
+
+void updateFlags(uint16_t arg) {
+	if(regs[arg] >> 15) {
+		// a 1 in the left-most bit 
+		// indicates negative
+		regs[R_COND] = FL_NEG;
+	} else if(regs[arg] == 0) {
+		regs[R_COND] = FL_ZRO;
+	} else {
+		regs[R_COND] = FL_POS;
+	}
+}
+
+void opAdd(uint16_t op) {
+	unsigned mask = createMask(5, 5);
+	unsigned mode = op & mask;
+	if(mode == 0) {
+		unsigned dr, sr1, imm5;
+		mask = createMask(9, 11);
+		dr = op & mask;
+		mask = createMask(9, 11);
+		sr1 = op & mask;
+		mask = createMask(0, 4);
+		imm5 = op & mask;
+	} else {
+		unsigned dr, sr1, sr2;
+		mask = createMask(9, 11);
+		dr = op & mask;
+		mask = createMask(6, 8);
+		sr1 = op & mask;
+		mask = createMask(0, 2);
+		sr2 = op & mask;
+	}
+}
 
 int main(int argc, const char* argv[]) {
-	// memory (65536)
-	uint16_t mem[UINT16_MAX];
-	// registers (10)
-	uint16_t regs[R_COUNT];
+	if(argc < 2) {
+		printf("lc3 [image-file1] ...\n");
+		exit(2);
+	}
+
 	// set the default 
 	regs[R_PC] = 0x3000;
 	while(true) {
