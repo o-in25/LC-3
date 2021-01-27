@@ -3,7 +3,8 @@
 /* starting address */
 #define LAST(k,n) ((k) & ((1<<(n))-1))
 #define MID(k,m,n) LAST((k)>>(m),((n)-(m)))
-#define MASK(b, p, n) ((b) >> (p)) & ((1 << (n)) - 1)
+//#define MASK(b, p, n) ((b) >> (p)) & ((1 << (n)) - 1)
+#define MASK(k, n, m) ((k & n) >> m); 
 extern enum { 
 	PC_START = 0x3000,
 	OP_CODE = 12

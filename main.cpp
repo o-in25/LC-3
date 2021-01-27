@@ -17,13 +17,14 @@ void increment_pc() {
     registers[R_PC]++;
 }
 
-void handle_op_add(int instr) {
-    std::cout << " INSTR: ";
-    std::cout << instr;
+void handle_op_add(int instruction) {
 
-    int dr = (instr & 0xE00) >> 9;
-    std::cout << " Dr: ";
-    std::cout << dr;
+    int mode = (instruction * 0x40) >> 5;
+    if(mode == 1) {
+        int dr = (instruction & 0xE00) >> 0x9; // dest reg
+        int sr1 = (instruction & 0x1C2) >> 0x6; // source reg
+    }
+
 
 }
 
