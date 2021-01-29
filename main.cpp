@@ -1,5 +1,6 @@
 #include <iostream>
 #include "const.h"
+#include "utils.h"
 
 int size = 10;
 // sets the maximum memory of 65536
@@ -17,16 +18,19 @@ void increment_pc() {
     registers[R_PC]++;
 }
 
-void handle_op_add(int instruction) {
 
+void handle_op_add(int instruction) {
     int mode = (instruction * 0x40) >> 5;
     if(mode == 1) {
+        // register mode
         int dr = (instruction & 0xE00) >> 0x9; // dest reg
         int sr1 = (instruction & 0x1C2) >> 0x6; // source reg
     }
-
-
+    Utils::sign_extend(instruction, 2);
+    // immediate modeS
 }
+
+
 
 
 int main(int argc, const char* argv[]) {
